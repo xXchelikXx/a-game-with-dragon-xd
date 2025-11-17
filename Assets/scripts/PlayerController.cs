@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -26,13 +24,24 @@ public class PlayerController : MonoBehaviour
     // коллизии
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("ground"))
+        if(collision.gameObject.CompareTag("Platform"))
+        {
+            this.transform.parent = collision.transform;
+        }
+
+        if (collision.gameObject.CompareTag("ground") || collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
+            anim.SetBool("jump", false);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            this.transform.parent = null;
+        }
+
         if (collision.gameObject.CompareTag("ground"))
         {
             isGrounded = false;
@@ -62,6 +71,8 @@ public class PlayerController : MonoBehaviour
         if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            anim.SetBool("jump", true);
         }
+
     }
 }
