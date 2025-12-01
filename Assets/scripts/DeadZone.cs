@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class DeadZone : MonoBehaviour
 {
-    private PlatformMove player;
+    
 
     private void Start()
     {
-        player = GetComponent<PlatformMove>();
-        player.transform.position = new Vector2(-1f, -2.7f);
+        
     }
 
 

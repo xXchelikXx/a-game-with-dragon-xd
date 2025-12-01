@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public bool isGrounded;
     private Animator anim;
+    private PlatformMove player;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        player = GetComponent<PlatformMove>();
+        player.transform.position = new Vector2(-1f, -2.7f);
     }
 
     // Update is called once per frame
@@ -55,7 +58,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(horiz * moveSpeed, rb.velocity.y);
         anim.SetBool("walk", horiz != 0);
 
-
         if (horiz > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -64,7 +66,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-
     }
     private void Jump()
     {
@@ -73,6 +74,5 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetBool("jump", true);
         }
-
     }
 }
